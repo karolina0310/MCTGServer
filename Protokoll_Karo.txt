@@ -1,5 +1,5 @@
+GIT: https://github.com/karolina0310/MCTGServer
 
-GIT: <link>
 
 Design documentation:
 
@@ -28,6 +28,7 @@ Datenbank Operationen in C#
 Unit Tests mit einem separaten Projekt;
 Asynchroner Code mit async;
 Client- Server Verständnis;
+Das nächste Mal gleich von Anfang an Git verwenden...
 
 Time spent
 Server: 7 Stunden
