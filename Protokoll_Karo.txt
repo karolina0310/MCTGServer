@@ -1,0 +1,42 @@
+
+GIT: <link>
+
+Design documentation:
+
+Ich habe einen einfachen TCP Server gebaut, welcher Requests akzeptiert und asynchron verarbeitet und Responses zurückschickt. Die Http Requests werden aufgesplittet und je nach Endpoint verarbeitet. Dazu habe ich zwei Switch Cases gemacht, welche die Route bzw. Methode abfragen. Es wird dann dementsprechend eine Response Instanz erstellt. Die Antwort an den Client wird darin festgelegt und über den Streamwriter zurückgeschickt. 
+Beim Battle wird ein Queue System mit einer ConcurrentQueue verwendet, sobald ein zweiter Spieler in der Queue ist, wird das Battle gestartet.
+Die Datenbank Operationen sind in eigenen Klassen aufgeteilt und werden in den Responses aufgerufen.
+Für die Unittests verwende ich ein eigenes NUnit-Projekt.
+
+Unittest-Beschreibung:
+
+In meinen Unit-Tests für das Monstercard-Backend werden die Battlelogic, die Initialisierung von wichtigen Spielobjekten, speziellen Spielregeln, Schadensberechnungen, Win und Lose Konditionen, sowie die Server-Kommunikation getestet. Das Ziel von denen ist es, sicherzustellen, dass das Spiel korrekt funktioniert und die Server-Anfragen ordnungsgemäß verarbeitet werden.
+
+Unique Feature:
+
+Im Battle gibt es in jeder Runde die Chance, dass ein von zwei Events passiert. Das eine Event gibt einer zufälligen Karte 5 Schaden dazu, das andere Event ändert einer zufälligen Karte eines zufälligen Spielers das Element.
+
+Added optional features
+
+-Elo-Berechnung; 
+-zwei neue Elemente(Earth, Air); 
+-win lose ratio bei Stats und Scoreboard;
+
+Lessons learned
+Entwicklung eines neuen Servers von Grunde auf;
+Datenbank Operationen in C#
+Unit Tests mit einem separaten Projekt;
+Asynchroner Code mit async;
+Client- Server Verständnis;
+
+Time spent
+Server: 7 Stunden
+HttpParser: 14 Stunden
+Responses: 34.5 Stunden
+BattleLogic: 16 Stunden
+Unique Feature: 2 Stunden
+Optional Features: ca.6 Stunden
+Unit Tests: 5 Stunden  
+Datenbank: min. 10 Stunden (ungefähr, weil nicht mitgezählt, da ich viel recherchieren musste....)
+Debugging + Bugfixing: ca. 6 Stunden
+Testen von den Endpoints: 4 Stunden
