@@ -23,7 +23,7 @@ namespace MonsterCardServer.Server.Responses
             return;
         }
 
-        public override async Task Get()
+        public override async Task Get() // zeigt das Profil an
         {
             try
             {
@@ -81,7 +81,7 @@ namespace MonsterCardServer.Server.Responses
             return;
         }
 
-        public override async Task Post()
+        public override async Task Post() //Spieler erstellen
         {
             
             try
@@ -92,7 +92,7 @@ namespace MonsterCardServer.Server.Responses
                     Content = "User successfully created";
                     StatusCode = 201;
                 }
-                else //falls wenn
+                else 
                 {
                     Content = "User with same username already registered";
                     StatusCode = 409;
@@ -113,7 +113,7 @@ namespace MonsterCardServer.Server.Responses
             return;
         }
 
-        public override async Task Put()
+        public override async Task Put() // Spieler bearbeiten
         {
             try
             {

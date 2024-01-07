@@ -124,8 +124,8 @@ namespace MonsterCardServer_UnitTests
             user1.Elo = 1000;
             user2.Elo = 1000;
 
-            // Simuliere ein Ergebnis
-            battle.user1Deck.Clear(); // User 2 gewinnt
+            // simuliert ein Ergebnis
+            battle.user1Deck.Clear(); // user 2 gewinnt
             battle.RunBattle().Wait();
 
             Assert.AreNotEqual(1000, user1.Elo);
@@ -135,7 +135,6 @@ namespace MonsterCardServer_UnitTests
         [Test]
         public void RunBattle_DrawRound_NoCardMovement()
         {
-            // Stellen Sie sicher, dass die Decks initialisiert sind
             var card1 = new CardModel { Damage = 30, Name = "Card1", Type = "Monster", Element = "Regular" };
             var card2 = new CardModel { Damage = 30, Name = "Card2", Type = "Monster", Element = "Regular" };
             battle.user1Deck = new List<CardModel> { card1 };
@@ -143,7 +142,7 @@ namespace MonsterCardServer_UnitTests
 
             battle.RunBattle().Wait();
 
-            // Überprüfen, ob die Decks unverändert bleiben
+            // überprüft, ob Decks unverändert bleiben
             Assert.AreEqual(1, battle.user1Deck.Count);
             Assert.AreEqual(1, battle.user2Deck.Count);
         }
@@ -167,13 +166,13 @@ namespace MonsterCardServer_UnitTests
             user1.Elo = 1000;
             user2.Elo = 1200;
 
-            // Angenommen, User1 gewinnt
+            // User1 gewinnt
             battle.user1Deck = new List<CardModel> { new CardModel() };
             battle.user2Deck = new List<CardModel>();
 
             battle.RunBattle().Wait();
 
-            // Überprüfen, ob User1s ELO erhöht wurde
+            // überprüft, ob User1s ELO erhöht wurde
             Assert.Greater(user1.Elo, 1000);
             Assert.Less(user2.Elo, 1200);
         }
@@ -193,7 +192,7 @@ namespace MonsterCardServer_UnitTests
 
             battle.RunBattle().Wait();
 
-            // Überprüfen, ob das Kampfprotokoll die Begrenzung der Runden zeigt
+            // überprüft, ob das BattleLog die Begrenzung der Runden zeigt
             Assert.IsTrue(battle.battleLog.Contains("Battle ended in a draw after 100 rounds."));
         }
 

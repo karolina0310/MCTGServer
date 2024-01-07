@@ -30,7 +30,7 @@ namespace MonsterCardServer.Server.Responses
             return;
         }
 
-        public async override Task Post()
+        public async override Task Post() //erstellt ein neues Package
         {
             try
             {

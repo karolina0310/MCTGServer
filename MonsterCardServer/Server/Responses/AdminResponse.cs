@@ -13,7 +13,7 @@ namespace MonsterCardServer.Server.Responses
         {
         }
 
-        public override async Task Delete()
+        public override async Task Delete() //Truncate Table
         {
             try
             {

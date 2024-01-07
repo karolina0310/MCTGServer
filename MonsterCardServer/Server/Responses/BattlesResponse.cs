@@ -32,7 +32,7 @@ namespace MonsterCardServer.Server.Responses
             return;
         }
 
-        public override async Task Post()
+        public override async Task Post() //Battle Starten
         {
 			UserModel tokenUser = new UserModel();
 			var token = Request.Headers["Authorization"];
@@ -53,6 +53,7 @@ namespace MonsterCardServer.Server.Responses
 
 			playerQueue.Enqueue(token);
 
+			//Spieler kommen in eine Queue, sobald zwei Spieler drinnen sind startet das Battle
 			if (playerQueue.Count >= 2)
 			{
 				if (playerQueue.TryDequeue(out string player1Token) && playerQueue.TryDequeue(out string player2Token))

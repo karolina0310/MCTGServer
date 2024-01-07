@@ -21,7 +21,7 @@ namespace MonsterCardServer.Server.Responses
             return;
         }
 
-        public override async Task Get()
+        public override async Task Get() //zeigt alle Karten, die der Spieler besitzt
         {
             try
             {

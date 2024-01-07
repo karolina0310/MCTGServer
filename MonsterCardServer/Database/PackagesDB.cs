@@ -38,7 +38,7 @@ namespace MonsterCardServer.Database
             db.Connect();
             var insertQuery = new StringBuilder("INSERT INTO cards (id, name, damage, element, type) VALUES ");
 
-            // Sammeln der Werte für jede Karte
+            // speichert Parameter für jede Karte in Liste
             var valueStrings = new List<string>();
             int counter = 0;
             foreach (var card in cards)
@@ -48,13 +48,14 @@ namespace MonsterCardServer.Database
                 counter++;
             }
 
-            // Fügen Sie alle Wertstrings in den INSERT-Befehl ein
+            
             insertQuery.Append(string.Join(", ", valueStrings));
 
             await using (var cmd = new NpgsqlCommand(insertQuery.ToString(), db.Connection))
             {
-                // Parameter für jede Karte hinzufügen
+                
                 counter = 0;
+                //setzt die Parameter pro Karte 
                 foreach (var card in cards)
                 {
                     cmd.Parameters.AddWithValue($"@id{counter}", card.Id);
@@ -65,10 +66,10 @@ namespace MonsterCardServer.Database
                     counter++;
                 }
 
-                int affectedRows = await cmd.ExecuteNonQueryAsync(); //führt SQL Anweisung aus
+                int affectedRows = await cmd.ExecuteNonQueryAsync(); 
                 db.Disconnect();
 
-                // Überprüfen, ob die Anzahl der betroffenen Zeilen der Anzahl der Karten entspricht
+                
                 return affectedRows == cards.Count;
             }
         }

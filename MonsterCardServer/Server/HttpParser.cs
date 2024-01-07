@@ -33,7 +33,7 @@ namespace MonsterCardServer.Server
                 Console.WriteLine();
 
                 string line;
-                while ((line = reader.ReadLine()) != null)
+                while ((line = reader.ReadLine()) != null) //geht durch jede Zeile des Requests
                 {
 
                     if (line.Length == 0)
@@ -42,21 +42,21 @@ namespace MonsterCardServer.Server
                     Console.WriteLine(line);
 
                     //baue mein request
-                    if (_request.Method == null)
+                    if (_request.Method == null) //setzt Methode Route und Version (erste Zeile)
                     {
                         var parts = line.Split(' ');
                         _request.Method = parts[0];
                         _request.Route = parts[1];
                         _request.HttpVersion = parts[2];
                     }
-                    else
+                    else //restlicher Header
                     {
                         var parts = line.Split(": ");
                         _request.AddHeaderPair(parts[0].TrimEnd(':'), parts[1]);
                     }
                 }
 
-                
+                //setzt eventuell einen zusätzlichen Parameter der in der Route steht (Bsp users/{username})
                 string[] routeParts = _request.Route.Split('/');
 
                 
@@ -74,6 +74,7 @@ namespace MonsterCardServer.Server
 
                 Console.WriteLine(_request.Route);
 
+                //Body auslesen
                 if (_request.Headers.TryGetValue("Content-Length", out string contentLength) && int.TryParse(contentLength, out int length) && length > 0)
                 {
                     char[] buffer = new char[length];
@@ -82,7 +83,7 @@ namespace MonsterCardServer.Server
                     _request.Content = content_string;
                 }
 
-
+                //jenach Route wird ein bestimmter Response erstellt
                 switch (_request.Route)
                 {
                     case "users":
@@ -119,6 +120,7 @@ namespace MonsterCardServer.Server
                         _response = new DefaultResponse(_request);
                         break;
                 }
+                //ruft die richtige Methode in der neuen Response auf
                 switch (_request.Method)
                 {
                     case "POST":
@@ -137,6 +139,7 @@ namespace MonsterCardServer.Server
                     default:
                         break;
                 }
+                //Response an den client zurückschicken
                 _response.Send(writer);
             }
         }

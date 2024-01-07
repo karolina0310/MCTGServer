@@ -21,7 +21,7 @@ namespace MonsterCardServer.Server.Responses
             return;
         }
 
-        public override async Task Get()
+        public override async Task Get() //zeigt alle Karten im SpielerDeck an
         {
             try
             {
@@ -70,7 +70,7 @@ namespace MonsterCardServer.Server.Responses
             return;
         }
 
-        public override async Task Put()
+        public override async Task Put() //Setzt die Karten des SpielerDecks
         {
             try
             {

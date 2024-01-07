@@ -41,12 +41,14 @@ namespace MonsterCardServer.Game
 				round++;
 				battleLog.Add($"Round {round}:");
 
+				//zufällige Karten auswählen pro Spieler
 				CardModel card1 = user1Deck[rng.Next(user1Deck.Count)];
 				CardModel card2 = user2Deck[rng.Next(user2Deck.Count)];
 				battleLog.Add($"{user1.Username} plays {card1.Name}, {user2.Username} plays {card2.Name}");
 
 				TriggerRandomEvent(); //unique feature
 
+				//checkt die special rules, falls eine eintritt, wird die Runde übersprungen
 				if (CheckSpecialConditions(card1, card2))
 				{
 					continue;
@@ -69,12 +71,14 @@ namespace MonsterCardServer.Game
 				}
 			}
 
+			//battle endet
 			if (round >= 100)
 			{
 				battleLog.Add("Battle ended in a draw after 100 rounds.");
 			}
 			else
 			{
+				//Elo Berechnung
 				double expectedScoreUser1 = 1 / (1 + Math.Pow(10, (user2.Elo - user1.Elo) / 400.0));
 				double expectedScoreUser2 = 1 / (1 + Math.Pow(10, (user1.Elo - user2.Elo) / 400.0));
 
@@ -100,6 +104,7 @@ namespace MonsterCardServer.Game
 					battleLog.Add($"{user2.DisplayName} won the battle!");
 				}
 
+				//user Daten werden in der DB geupdatet
 				await UsersDB.ChangeUserStats(user1);
 				await UsersDB.ChangeUserStats(user2);
 
@@ -138,7 +143,7 @@ namespace MonsterCardServer.Game
         {
             var targetDeck = rng.Next(2) == 0 ? user1Deck : user2Deck;
             var card = targetDeck[rng.Next(targetDeck.Count)];
-            card.Damage += 5; // Zufällige Karte von einem Spieler erhält +5 Damage
+            card.Damage += 5; // zufällige Karte von einem Spieler erhält +5 Damage
 
             battleLog.Add($"Random Event: Damage Boost applied to {card.Name}");
         }
@@ -195,7 +200,7 @@ namespace MonsterCardServer.Game
             double damageMultiplier = 1;
 
             // Spells haben elementbasierte Effekte
-            if (attacker.Type == "Spell" && defender.Type == "Monster")
+            if (attacker.Type == "Spell" || defender.Type == "Spell")
             {
                 switch (attacker.Element)
                 {
@@ -228,6 +233,7 @@ namespace MonsterCardServer.Game
 			List<CardModel> winnerDeck = (winner.Id == user1.Id) ? user1Deck : user2Deck;
 			List<CardModel> loserDeck = (loser.Id == user1.Id) ? user1Deck : user2Deck;
 
+			//Karte wird aus dem VerliererDeck entfernt und zum Gewinner hinzugefügt
 			loserDeck.Remove(losingCard);
 			winnerDeck.Add(losingCard);
 

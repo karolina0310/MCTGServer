@@ -22,7 +22,7 @@ namespace MonsterCardServer.Server.Responses
             return;
         }
 
-        public override async Task Get()
+        public override async Task Get() //zeigt die Stats des Spielers an
         {
             try
             {

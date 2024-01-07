@@ -33,7 +33,7 @@ namespace MonsterCardServer.Database
                 cmd.Parameters.AddWithValue("elo", 1000);
                 cmd.Parameters.AddWithValue("gamesplayed", 0);
                
-                int affectedRows= await cmd.ExecuteNonQueryAsync(); //führt SQL Anweisung aus
+                int affectedRows= await cmd.ExecuteNonQueryAsync(); 
                 db.Disconnect();
                 return affectedRows == 1;
             }

@@ -17,7 +17,7 @@ namespace MonsterCardServer.Server
         public int StatusCode { get; set; }
         public string Content { get; set; }
 
-        public HttpResponse(HttpRequest request) //constructor for HttpResponse
+        public HttpResponse(HttpRequest request)
         {
             UsersDB=new UsersDB();
             PackagesDB=new PackagesDB();
@@ -25,7 +25,7 @@ namespace MonsterCardServer.Server
             Request = request;
         }
 
-        public void Send(StreamWriter writer)
+        public void Send(StreamWriter writer) // Antwort an den Client 
         {
             try
             {
